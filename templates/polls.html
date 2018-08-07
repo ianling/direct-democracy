@@ -1,0 +1,35 @@
+<html>
+<head>
+<style>
+.hash { font-size: 0.8em; }
+.result { font-weight: bold; }
+</style>
+</head>
+<body>
+{% for poll in polls %}
+    <div class="poll">
+        <div class="poll-title">POLL #{{ poll["id"] }}: 
+        {% if poll["open"] == 0 %}
+            {{ poll["title"] }} (poll closed. <span class="result">Result: {{ hashes[poll["id"]]["result"] }}</span>)
+            </div>
+            <div>
+            [ <a href="/votes/{{ poll["id"] }}">Download Full Results (CSV)</a> 
+            <span class="hash">SHA256: {{ hashes[poll["id"]]["hash"] }} ]
+        {% elif poll["id"] in polls_voted_in %}
+            {{ poll["title"] }} (already voted)
+            </div>
+            <div>
+            [ <a href="/votes/{{ poll["id"] }}">Download Full Results (CSV)</a> ]
+        {% else %}
+            <a href="/vote/{{ poll["id"] }}">{{ poll["title"] }}</a>
+            </div>
+            <div>
+            [ <a href="/votes/{{ poll["id"] }}">Download Full Results (CSV)</a> ]
+        {% endif %}
+        </div>
+        <div class="poll-description">DESCRIPTION: {{ poll["description"] }}</div>
+    </div>
+    <div>&nbsp</div>
+{% endfor %}
+</body>
+</html>

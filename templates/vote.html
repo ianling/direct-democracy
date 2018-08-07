@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<div class="poll">
+    <div class="poll-title">POLL: {{ poll["title"] }}</div>
+    <div class="poll-description">{{ poll["description"] }}</div>
+</div>
+<div class="poll-options">
+    <form method="POST">
+    {% for poll_option in poll_options %}
+        <div class="poll-option">
+            <input type="radio" id="poll_option{{ poll_option["id"] }}" name="poll_option_id" value={{ poll_option["id"] }} />
+            <label for="poll_option{{ poll_option["id"] }}">{{ poll_option["value"] }}</label>
+        </div>
+    {% endfor %}
+    <input type="submit">
+    </form>
+</div>
+</body>
+</html>
